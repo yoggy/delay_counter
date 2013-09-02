@@ -1,18 +1,32 @@
 import net.sabamiso.processing.nex6.*;
 
-class FireThread extends Thread {
-  PApplet papplet;
+class FireNex6Thread extends OneShotActionThread {
   Nex6 nex6;
 
-  FireThread(PApplet papplet) {
-    this.papplet = papplet;
+  FireNex6Thread(PApplet papplet) {
+    super(papplet);
+    
     nex6 = new Nex6(papplet);
+
     boolean rv = nex6.start();
     if (rv == false) {
       println("error: nex6.start() failed...");
       exit();
       return;
     }
+  }
+
+  void doFire() {
+    println("FireNex6Thread::doFire()");
+    PImage img = nex6.takePicture();
+  }
+}
+
+class OneShotActionThread extends Thread {
+  PApplet papplet;
+
+  OneShotActionThread(PApplet papplet) {
+    this.papplet = papplet;
   }
 
   void run() {
@@ -34,8 +48,7 @@ class FireThread extends Thread {
   }
 
   void doFire() {
-    println("doFire!");
-    PImage img = nex6.takePicture();
+    println("OneShotActionThread::doFire()");
   }
 }
 

@@ -2,7 +2,7 @@ int count;
 boolean running;
 PFont pfont;
 
-FireThread thread;
+FireNex6Thread nex6;
 
 void setup() {
   size(640, 480);
@@ -12,8 +12,8 @@ void setup() {
 
   clear();
 
-  thread = new FireThread(this);
-  thread.start();
+  nex6 = new FireNex6Thread(this);
+  nex6.start();
 }
 
 void draw() {
@@ -40,7 +40,7 @@ void clear() {
 
 void fire() {
   running = true;
-  thread.fire();
+  nex6.fire();
 }
 
 void keyPressed() {
