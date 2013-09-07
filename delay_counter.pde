@@ -2,7 +2,9 @@ int count;
 boolean running;
 PFont pfont;
 
-FireNex6Thread nex6;
+FireThread thread;
+boolean auto_mode = false;
+int auto_mode_count = 0;
 
 void setup() {
   size(640, 480);
@@ -12,8 +14,8 @@ void setup() {
 
   clear();
 
-  nex6 = new FireNex6Thread(this);
-  nex6.start();
+  thread = new FireThread(this);
+  thread.start();
 }
 
 void draw() {
@@ -31,6 +33,17 @@ void process() {
   if (running == true) {
     count ++;
   }
+
+  if (auto_mode) {
+    if (auto_mode_count % 800 == 500) {
+      clear();
+    }
+    if (auto_mode_count % 800 == 799) {
+      fire();
+      auto_mode_count = 0;
+    }
+    auto_mode_count ++;
+  }
 }
 
 void clear() {
@@ -40,7 +53,7 @@ void clear() {
 
 void fire() {
   running = true;
-  nex6.fire();
+  thread.fire();
 }
 
 void keyPressed() {
@@ -51,6 +64,10 @@ void keyPressed() {
   case 'c':
     clear();
     break;
-  }
+  case 'a':
+    auto_mode = !auto_mode;
+    auto_mode_count = 0;
+    break;
+  }  
 }
 
