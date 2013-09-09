@@ -2,7 +2,7 @@ int count;
 boolean running;
 PFont pfont;
 
-FireThread thread;
+OneShotActionThread thread;
 boolean auto_mode = false;
 int auto_mode_count = 0;
 
@@ -14,7 +14,9 @@ void setup() {
 
   clear();
 
-  thread = new FireThread(this);
+  thread = new OneShotActionThread(this);
+  //thread = new FireIRThread(this, "/dev/tty.usbmodem1421");  // IR remote control
+  //thread = new FireNex6Thread(this); // wifi
   thread.start();
 }
 
@@ -54,6 +56,7 @@ void clear() {
 void fire() {
   running = true;
   thread.fire();
+  println("fire : " + System.currentTimeMillis());
 }
 
 void keyPressed() {
