@@ -17,7 +17,7 @@ class FireIRThread extends OneShotActionThread {
   }
 
   void doFire() {
-    println("FireNex6Thread::doFire()");
+    println("FireIRThread::doFire() : " + System.currentTimeMillis());
     serial.write('s');
   }
 }
@@ -39,7 +39,7 @@ class FireNex6Thread extends OneShotActionThread {
   }
 
   void doFire() {
-    println("FireNex6Thread::doFire()");
+    println("FireNex6Thread::doFire() : " + System.currentTimeMillis());
     PImage img = nex6.takePicture();
   }
 }
